@@ -15,20 +15,13 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
-
+    'paths' => ["*"],
     'allowed_methods' => ['*'],
-
-    'allowed_origins' => ['https://cdg.holako.tech', 'https://cdg2.holako.tech', 'http://localhost:3000'],
-
+    'allowed_origins' => ["*.holako.tech", "http://localhost:3000"],
     'allowed_origins_patterns' => [],
-
     'allowed_headers' => ['*'],
-
     'exposed_headers' => [],
-
     'max_age' => 0,
-
     'supports_credentials' => false,
 
 ];

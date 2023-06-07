@@ -27,14 +27,20 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get("/seed", function () {
     try {
-        Artisan::call("migrate:fresh --seed", [
+        Artisan::call("migrate:fresh", [
             '--force' => true
         ]);
+
+        Artisan::call("db:seed", [
+            '--force' => true
+        ]);
+
         return response()->json(["status" => "done"]);
     } catch (\Exception $e) {
         return response()->json(["status" => "failed", "error" => $e->getMessage()]);
     }
 });
+
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {

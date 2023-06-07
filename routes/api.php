@@ -27,7 +27,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get("/seed", function () {
     try {
-        Artisan::call("migrate:fresh --seed");
+        Artisan::call("migrate:fresh --seed", [
+            '--force' => true
+        ]);
         return response()->json(["status" => "done"]);
     } catch (\Exception $e) {
         return response()->json(["status" => "failed", "error" => $e->getMessage()]);

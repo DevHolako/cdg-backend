@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ActeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DocController;
 use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,14 @@ Route::get('/', function () {
 // Public routes
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::get("/seed", function () {
+    try {
+        Artisan::call("migrate:fresh --seed");
+        return response()->json(["status" => "done"]);
+    } catch (\Exception $e) {
+        return response()->json(["status" => "failed", "error" => $e->getMessage()]);
+    }
+});
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {

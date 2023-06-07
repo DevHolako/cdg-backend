@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Doc;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,13 +19,15 @@ class ActeFactory extends Factory
     public function definition(): array
     {
         $docIds = Doc::pluck('id')->toArray();
+        $now = Carbon::now()->format('Y-m-d');
+        $after5days = Carbon::now()->addDays(5)->format('Y-m-d');
         return [
 
             'nom' => fake()->firstName(),
-            'prenom' => fake()->lastName,
-            'acte' => fake()->sentence,
+            'prenom' => fake()->lastName(),
+            'acte' => fake()->word(),
             'montant' => fake()->randomNumber(4),
-            'date' => fake()->dateTimeBetween('2023-06-04', '2023-06-06')->format('Y-m-d'),
+            'date' => fake()->dateTimeBetween($now, $after5days)->format('Y-m-d'),
             'method' => fake()->randomElement(['chéque', 'espece', 'card']),
             'doc_id' => fake()->randomElement($docIds),
         ];

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer("montant");
             $table->date('date')->default(now());
             $table->enum("method", ["chéque", "espece", "card"]);
-            $table->foreignId('doc_id')->constrained();
+            $table->foreignId('doc_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

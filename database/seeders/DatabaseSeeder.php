@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             "isAdmin" => false
         ]);
 
-        Doc::factory()->count(4)->create();
-        Acte::factory()->count(50)->create();
+        Doc::factory()->count(2)->create();
+        Acte::factory()->count(10)->create();
     }
 }

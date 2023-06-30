@@ -20,14 +20,30 @@ class ActeFactory extends Factory
     {
         $docIds = Doc::pluck('id')->toArray();
         $now = Carbon::now()->format('Y-m-d');
-        $after5days = Carbon::now()->addDays(3)->format('Y-m-d');
+        $dateRange = [
+            Carbon::now()->subDays(2)->format('Y-m-d'),
+            Carbon::now()->addDays(2)->format('Y-m-d')
+        ];
+        $procedures = [
+            "Examen bucco-dentaire",
+            "Nettoyage dentaire",
+            "Obturation dentaire",
+            "Dévitalisation dentaire",
+            "Extraction dentaire",
+            "Pose de couronne dentaire",
+            "Pose de bridge dentaire",
+            "Implant dentaire",
+            "Blanchiment dentaire",
+            "Orthodontie"
+        ];
+
         return [
 
             'nom' => fake()->firstName(),
             'prenom' => fake()->lastName(),
-            'acte' => fake()->word(),
+            'acte' => fake()->randomElement($procedures),
             'montant' => fake()->randomNumber(4),
-            'date' => fake()->dateTimeBetween($now, $after5days)->format('Y-m-d'),
+            'date' => fake()->dateTimeBetween($dateRange[0], $dateRange[1])->format('Y-m-d'),
             'method' => fake()->randomElement(['chéque', 'espece', 'card']),
             'doc_id' => fake()->randomElement($docIds),
         ];

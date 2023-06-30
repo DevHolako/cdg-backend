@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
             "isAdmin" => true
         ]);
         User::create([
-            'nomComplete' => 'Holako Noob',
+            'nomComplete' => 'Rguibi Maroaune',
             'login' => 'holako',
             "password" => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             "isAdmin" => false
         ]);
 
-        Doc::factory()->count(2)->create();
-        Acte::factory()->count(10)->create();
+        Doc::factory()->count(3)->create();
+        Acte::factory()->count(60)->create();
     }
 }

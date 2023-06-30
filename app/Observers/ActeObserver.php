@@ -7,7 +7,6 @@ use App\Models\DailyProfit;
 use App\Models\Doc;
 use App\Models\MonthlyProfit;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class ActeObserver
@@ -18,7 +17,7 @@ class ActeObserver
     public function created(Acte $acte): void
     {
 
-        $this->updateProfit($acte);
+        $this->updateProfit($acte, false);
     }
 
     /**
@@ -26,7 +25,7 @@ class ActeObserver
      */
     public function updated(Acte $acte): void
     {
-        $this->updateProfit($acte);
+        $this->updateProfit($acte, false);
     }
 
     /**
@@ -43,7 +42,7 @@ class ActeObserver
 
 
     // main fn
-    private function updateProfit(Acte $acte, $deleted = false): void
+    private function updateProfit(Acte $acte, bool $deleted): void
     {
         $doc = $acte->doc;
         $date = $acte->date;
@@ -119,9 +118,11 @@ class ActeObserver
             ->where('year', Carbon::parse($date)->year)
             ->where('month', Carbon::parse($date)->month)
             ->first();
+
         if ($existingProfit) {
             $totalMontant = DailyProfit::whereYear('acte_date', Carbon::parse($date)->year)
                 ->whereMonth('acte_date', Carbon::parse($date)->month)
+                ->where('doc_id', $doc->id)
                 ->sum('montant');
 
             $existingProfit->update([
@@ -139,7 +140,7 @@ class ActeObserver
         $this->updateMonthlyDoc($doc, $date);
     }
 
-    private function updateMonthlyDoc(Doc $doc, $date, $deleted = false): void
+    private function updateMonthlyDoc(Doc $doc, $date): void
     {
 
         $currentMonth = Carbon::now()->format('Y-m');

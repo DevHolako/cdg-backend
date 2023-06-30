@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'api-cdg'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F7045BB9AA564D9485BDEC006D0B6020 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4819EBBE1F124CF09A089E411193D1D6 }}
           package: .

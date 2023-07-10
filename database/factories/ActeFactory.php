@@ -21,8 +21,8 @@ class ActeFactory extends Factory
         $docIds = Doc::pluck('id')->toArray();
         $now = Carbon::now()->format('Y-m-d');
         $dateRange = [
-            Carbon::now()->subDays(2)->format('Y-m-d'),
-            Carbon::now()->addDays(2)->format('Y-m-d')
+            Carbon::now()->subDays(1)->format('Y-m-d'),
+            Carbon::now()->addDays(13)->format('Y-m-d')
         ];
         $procedures = [
             "Examen bucco-dentaire",
